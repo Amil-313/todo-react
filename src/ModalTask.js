@@ -10,7 +10,6 @@ function ModalTask({item, onClear}) {
         develeopment,
         done
       } = React.useContext(ContextTasks);
-      console.log(queue, develeopment, done)
 
     const stopPropClear = (e) => {
         e.stopPropagation();
@@ -20,7 +19,8 @@ function ModalTask({item, onClear}) {
 const [taskUpdate, setTaskUpdate] = React.useState(true);
 const [itemValue, setItemValue] = React.useState();
 const [itemDescription, setItemDescription] = React.useState();
-console.log('itemValue',itemValue)
+const [isSubtask, setIsSabtask] = React.useState(false);
+const [isComment, setIsComment] = React.useState(false);
 
 const onChangeTask = () => {
     itemValue && queue.map((item) => item.id === itemValue.id ? item.title = itemValue.title : item);
@@ -60,10 +60,10 @@ const onChangeTask = () => {
                                 </div>
                                 <div className="task_edit">
 
-                                        <button>
+                                        <button onClick={() => setIsSabtask(true)}>
                                             Add subtask
                                         </button>
-                                        <button>
+                                        <button onClick={() => setIsComment(true)}>
                                             Add comments
                                         </button>
                                         <button 
@@ -109,6 +109,33 @@ const onChangeTask = () => {
                                     </div>
                                 </form>}
                         </div>
+                        {isSubtask &&
+                        <form className='subtask_form'>
+                            <input 
+                            placeholder='Subtask name'
+                            type="text" />
+                            <textarea 
+                            placeholder='Subtask description'
+                            type="text" cols="30" rows="10" />
+                            <div className='subtask_btn'>
+                                <button>Create</button>
+                                <button onClick={() => setIsSabtask(false)}>
+                                    Censel
+                                </button>
+                            </div>
+                        </form>}
+                        {isComment &&
+                        <form className='comment_form'>
+                            <textarea 
+                            placeholder='Comments...'
+                            type="text" cols="30" rows="10" />
+                            <div className='subtask_btn'>
+                                <button>Add comment</button>
+                                <button onClick={() => setIsComment(false)}>
+                                    Censel
+                                </button>
+                            </div>
+                        </form>}
                     </div>
                 </div>
             
