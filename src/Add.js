@@ -32,6 +32,7 @@ function Add() {
     };
 
     const onClear = (item) => {
+        window.confirm('Delete project?') &&
         setProjects(projects.filter((project) => project.id !== item.id ));
     }
 

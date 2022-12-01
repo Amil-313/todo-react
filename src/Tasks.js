@@ -115,6 +115,7 @@ function Tasks({ item }) {
                     placeholder='Task name' 
                     />
                     <textarea 
+                    rows="10" cols="20" wrap="hard"
                     value={description} 
                     onChange={(e) => setDescription(e.target.value)} 
                     type="text" 

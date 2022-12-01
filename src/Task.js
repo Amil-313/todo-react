@@ -26,7 +26,6 @@ function Task({
         setDone(done.filter((item) => item.id !== id));
       };
 
-    
   return (
     <>
         {board.items.map(item => 

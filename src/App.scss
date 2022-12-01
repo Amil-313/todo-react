@@ -338,16 +338,40 @@ textarea {
         display: flex;
         flex-direction: column;
         width: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.603);
+        border-radius: 15px;
 
         .modal_title {
             display: flex;
-            width: 100%;
             padding: 10px;
+            border-bottom: 1px solid black;
+            margin: 10px 20px;
+            flex: 1;
+            align-items: center;
+            font-size: 16px;
+
+            i {
+                padding: 3px;
+                margin: 7px;
+                border-radius: 3px;
+                background-color: #b2b2ff;
+                font-weight: 400;
+            }
+            h3 {
+                margin-left: 10px;
+            }
         }
 
         .modal_main {
-            width: 100%;
             padding: 10px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            margin-bottom: 10px;
+            
+            i {
+                margin-bottom: 7px;
+            }
         }
     }
 
@@ -364,5 +388,13 @@ textarea {
             margin: 5px;
             border-radius: 10px;
         }
+    }
+}
+
+.task_form {
+    
+    i {
+        margin-left: 10px;
+        margin-top: 5px;
     }
 }
