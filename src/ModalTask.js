@@ -1,4 +1,5 @@
 import React from 'react'
+import Comment from './Comment';
 import { ContextTasks } from './Tasks';
 
 function ModalTask({item, onClear}) {
@@ -21,6 +22,33 @@ const [itemValue, setItemValue] = React.useState();
 const [itemDescription, setItemDescription] = React.useState();
 const [isSubtask, setIsSabtask] = React.useState(false);
 const [isComment, setIsComment] = React.useState(false);
+
+
+
+const [commentValue, setCommentValue] = React.useState({});
+
+  const addComment = () => {
+    const comment = {
+      id: Math.floor(Math.random()*1000) + String(commentValue.id),
+      title: commentValue.title,
+      dis: commentValue.dis + 1,
+      comments: []
+    };
+    item.comments = [comment, ...item.comments];
+    setCommentValue({});
+  }
+  const onAddCommit = () => {
+    addComment();
+    setCommentValue({});
+    setIsComment(false);
+  }
+
+
+
+
+
+
+
 
 const onChangeTask = () => {
     itemValue && queue.map((item) => item.id === itemValue.id ? item.title = itemValue.title : item);
@@ -125,10 +153,21 @@ const onChangeTask = () => {
                             </div>
                         </form>}
                         {isComment &&
-                        <form className='comment_form'>
+                        <form 
+                        onSubmit={onAddCommit}
+                        className='comment_form'>
                             <textarea 
-                            placeholder='Comments...'
-                            type="text" cols="30" rows="10" />
+                            cols="30" rows="10" 
+                            placeholder='Add comment'
+                            value={commentValue.title}
+                            type="text" 
+                            onChange={(e) => 
+                              setCommentValue({
+                                id: item.id,
+                                dis: 0,
+                                title: e.target.value
+                              })}
+                             />
                             <div className='subtask_btn'>
                                 <button>Add comment</button>
                                 <button onClick={() => setIsComment(false)}>
@@ -136,6 +175,12 @@ const onChangeTask = () => {
                                 </button>
                             </div>
                         </form>}
+                        <div className='comment_center'>
+                            <div className='all_comments'>
+                                <Comment array={item.comments} />
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             

@@ -28,7 +28,8 @@ function Tasks({ item }) {
             parId: item.id,
             id: Math.floor(Math.random()*10000),
             title: title,
-            description: description
+            description: description,
+            comments: []
         };
         setQueue([objProject, ...queue]);
         setTitle('');
