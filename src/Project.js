@@ -28,7 +28,8 @@ function Project({ item, onClear, setValueUpdate, valueUpdate, projects }) {
               <input defaultValue={item.title} type="text" onChange={(e) => setValueUpdate({
                   id: item.id,
                   title: e.target.value
-              })} />
+              })}
+              required />
               <button>
                 <img src={require('./img/done.png')} alt="done" />
               </button>

@@ -10,12 +10,12 @@ function Tasks({ item }) {
     const [description, setDescription] = React.useState('');
     const [queue, setQueue] = React.useState([]);
     const [develeopment, setDevelopment] = React.useState([]);
-    const [done, setDone] = React.useState([])
+    const [done, setDone] = React.useState([]);
     const [currentBoard, setCurrentBoard] = React.useState();
     const [currentItem, setCurrentItem] = React.useState();
     const [modalAdd, setModalAdd] = React.useState(false);
  
-    const [boards, setBoards] = React.useState(item.tasks)
+    const [boards, setBoards] = React.useState(item.tasks);
 
 
     boards[0].items = queue;
@@ -25,10 +25,10 @@ function Tasks({ item }) {
     const onAddTask = (e) => {
         e.preventDefault();
         const objProject = {
-            parId: item.id,
             id: Math.floor(Math.random()*10000),
             title: title,
             description: description,
+            subtasks: [],
             comments: []
         };
         setQueue([objProject, ...queue]);
@@ -114,6 +114,7 @@ function Tasks({ item }) {
                     onChange={(e) => setTitle(e.target.value)} 
                     type="text" 
                     placeholder='Task name' 
+                    required
                     />
                     <textarea 
                     rows="10" cols="20" wrap="hard"

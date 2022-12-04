@@ -5,17 +5,19 @@ function Commentnext({itemComment, setCommentValue, addComment, commentValue}) {
   const [update, setUpdate] = React.useState(true);
   const [updateComment, setUpdateComment] = React.useState(itemComment);
   const [isComment, setIsComment] = React.useState(false);
+  const [sizeArea, setSizeArea] = React.useState("auto");
 
 
   const onUpdateComment = () => {
     itemComment.title = updateComment.title;
     setUpdate(true);
-  }
+  };
 
-  const onAddComment = () => {
+  const onAddComment = (e) => {
+    e.stopPropagation();
     addComment(); 
     setIsComment(false);
-  }
+  };
    
   
   return (
@@ -24,7 +26,9 @@ function Commentnext({itemComment, setCommentValue, addComment, commentValue}) {
               <div className='add_comment'>
                {update ?  
                 <div className="comment_main">
-                    <p>{itemComment.title}</p>
+                    <div className='comment_content'>
+                      {itemComment.title}
+                    </div>
                     <div className="comment_btn">
                       <button onClick={() => setUpdate(false)}>
                       <img src={require('./img/edit.png') } alt="edit" />
@@ -45,6 +49,7 @@ function Commentnext({itemComment, setCommentValue, addComment, commentValue}) {
                   id: itemComment.id,
                   title: e.target.value
                 })}
+                required
                 />
                 <button>
                   Change
@@ -58,12 +63,15 @@ function Commentnext({itemComment, setCommentValue, addComment, commentValue}) {
                 placeholder='Add comment'
                 value={commentValue.title}
                 type="text" 
+                style={{"height" : sizeArea}}
+                onKeyUp={(e) => setSizeArea(e.target.scrollHeight)}
                 onChange={(e) => 
                   setCommentValue({
                     id: itemComment.id,
                     dis: itemComment.dis,
                     title: e.target.value
                   })}
+                  required
                 />
                 <button>
                 <img src={require('./img/done.png') } alt="done" />

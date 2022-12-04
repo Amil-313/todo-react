@@ -89,6 +89,7 @@ function Add() {
             onChange={(e) => setSearchProject(e.target.value)} 
             value={searchProject} 
             placeholder='Search project'
+            required
             />
             <form 
             className='add_form' 
@@ -100,6 +101,7 @@ function Add() {
                 onChange={(e) => setTitle(e.target.value)} 
                 type="text" 
                 placeholder='Add project' 
+                required
                 />
                 <button 
                 className='add_btn'

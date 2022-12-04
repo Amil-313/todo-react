@@ -1,5 +1,6 @@
 import React from 'react'
 import Comment from './Comment';
+import Subtask from './Subtask';
 import { ContextTasks } from './Tasks';
 
 function ModalTask({item, onClear}) {
@@ -20,10 +21,27 @@ function ModalTask({item, onClear}) {
 const [taskUpdate, setTaskUpdate] = React.useState(true);
 const [itemValue, setItemValue] = React.useState();
 const [itemDescription, setItemDescription] = React.useState();
-const [isSubtask, setIsSabtask] = React.useState(false);
 const [isComment, setIsComment] = React.useState(false);
+const [isSubtask, setIsSabtask] = React.useState(false);
+const [subtaskTitle, setSubtaskTitle] = React.useState('');
+const [subtaskDescription, setSubtaskDescription] = React.useState('');
+const [subtasks, setSubtasks] = React.useState(item.subtasks);
 
-
+const onAddSubtask = () => {
+    const objSubtask = {
+        id: Math.floor(Math.random()*10000),
+        title: subtaskTitle,
+        description: subtaskDescription,
+        comments: []
+    };
+    setSubtasks([objSubtask, ...subtasks]);
+    setSubtaskTitle('');
+    setSubtaskDescription('');
+    setIsSabtask(false);
+};
+const deleteSubtask = (deleteId) => {
+    setSubtasks(subtasks.filter((subtask) => subtask.id !== deleteId))
+};
 
 const [commentValue, setCommentValue] = React.useState({});
 
@@ -36,18 +54,18 @@ const [commentValue, setCommentValue] = React.useState({});
     };
     item.comments = [comment, ...item.comments];
     setCommentValue({});
-  }
+  };
   const onAddCommit = () => {
     addComment();
     setCommentValue({});
     setIsComment(false);
   }
 
-
-
-
-
-
+  if (modalWindow) {
+    document.body.style.overflow = "hidden"
+  } else {
+    document.body.style.overflow = "auto"
+  };
 
 
 const onChangeTask = () => {
@@ -81,9 +99,9 @@ const onChangeTask = () => {
                                     </div>
                                     <div className="modal_main">
                                         <i>Description:</i>
-                                        <p>
+                                        <div>
                                             {item.description}
-                                        </p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="task_edit">
@@ -119,6 +137,7 @@ const onChangeTask = () => {
                                         id: item.id,
                                         title: e.target.value
                                         })}
+                                    required
                                     />
                                     <i>Description:</i>
                                     <textarea
@@ -138,13 +157,25 @@ const onChangeTask = () => {
                                 </form>}
                         </div>
                         {isSubtask &&
-                        <form className='subtask_form'>
+                        <form 
+                        onSubmit={onAddSubtask}
+                        className='subtask_form'>
                             <input 
                             placeholder='Subtask name'
-                            type="text" />
+                            type="text"
+                            value={subtaskTitle}
+                            onChange={(e) => setSubtaskTitle(
+                                e.target.value
+                            )}
+                            required />
                             <textarea 
                             placeholder='Subtask description'
-                            type="text" cols="30" rows="10" />
+                            type="text" cols="30" rows="10"
+                            value={subtaskDescription}
+                            onChange={(e) => setSubtaskDescription(
+                                e.target.value
+                            )}
+                             />
                             <div className='subtask_btn'>
                                 <button>Create</button>
                                 <button onClick={() => setIsSabtask(false)}>
@@ -167,6 +198,7 @@ const onChangeTask = () => {
                                 dis: 0,
                                 title: e.target.value
                               })}
+                            required
                              />
                             <div className='subtask_btn'>
                                 <button>Add comment</button>
@@ -180,6 +212,12 @@ const onChangeTask = () => {
                                 <Comment array={item.comments} />
                             </div>
                         </div>
+                        {subtasks.map((subtask) => 
+                            <Subtask 
+                            deleteSubtask={ deleteSubtask }
+                            item={subtask} />
+                        )}
+                        
 
                     </div>
                 </div>
