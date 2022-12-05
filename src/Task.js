@@ -41,6 +41,7 @@ function Task({
                        
                        <ModalTask 
                         onClear = {onClear}
+                        status = {board.id}
                        item = {item}/>
                     
                     </div> )}

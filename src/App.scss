@@ -203,6 +203,16 @@ textarea {
 
     .item_modal {
         padding: 10px;
+
+        .task_status {
+            display: flex;
+            align-items: center;
+
+            img {
+                width: 25px;
+                margin-right: 10px;
+            }
+        }
     }
 }
 

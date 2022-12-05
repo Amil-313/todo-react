@@ -3,7 +3,7 @@ import Comment from './Comment';
 import Subtask from './Subtask';
 import { ContextTasks } from './Tasks';
 
-function ModalTask({item, onClear}) {
+function ModalTask({item, onClear, status}) {
     
     const [modalWindow, setModalWindow] = React.useState(false);
 
@@ -78,13 +78,24 @@ const onChangeTask = () => {
 
     setTaskUpdate(true);
 }
+let currentStatus;
+if (status === 1) {
+    currentStatus = require('./img/taskqueue.png')
+} else if (status === 2) {
+    currentStatus = require('./img/taskdevelopnent.png')
+} else {
+    currentStatus = require('./img/taskdone.png')
+};
 
   return (
     <>
 
 
         <div className='item_modal' onClick={stopPropClear} >
-            <h4>{item.title}</h4>
+            <div className="task_status">
+                <img src={currentStatus} alt='status' />
+                <h4>{item.title}</h4>
+            </div>
             
                 <div className={modalWindow ? "modal_back active" : "modal_back"}>
                     <div className={modalWindow ? "modal active modal_task" : "modal modal_task"} onClick={(e) => e.stopPropagation()}>
